@@ -78,6 +78,34 @@ function getQuestionsForGroup(groupNumber) {
     return allQuestions[groupKey] || [];
 }
 
+// Shuffle array function (Fisher-Yates algorithm)
+function shuffleArray(array) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
+
+// Shuffle answers while keeping track of correct answer
+function shuffleAnswers(question) {
+    const options = [...question.options];
+    const correctAnswer = options[question.correct];
+    
+    // Shuffle the options
+    const shuffledOptions = shuffleArray(options);
+    
+    // Find the new index of the correct answer
+    const newCorrectIndex = shuffledOptions.indexOf(correctAnswer);
+    
+    return {
+        question: question.question,
+        options: shuffledOptions,
+        correct: newCorrectIndex
+    };
+}
+
 // Display current question
 function displayQuestion() {
     if (currentQuestionIndex >= currentQuestions.length) {
@@ -86,20 +114,25 @@ function displayQuestion() {
     }
 
     const question = currentQuestions[currentQuestionIndex];
-    questionText.textContent = question.question;
+    const shuffledQuestion = shuffleAnswers(question);
+    
+    questionText.textContent = shuffledQuestion.question;
     currentQuestionElement.textContent = currentQuestionIndex + 1;
 
     // Clear previous selections
     selectedAnswer = null;
     nextBtn.disabled = true;
     
-    // Display options
+    // Display shuffled options
     const options = document.querySelectorAll('.option');
     options.forEach((option, index) => {
         option.classList.remove('selected', 'correct', 'incorrect');
-        option.querySelector('.option-text').textContent = question.options[index];
+        option.querySelector('.option-text').textContent = shuffledQuestion.options[index];
         option.onclick = () => selectAnswer(index);
     });
+    
+    // Store the shuffled question for answer checking
+    currentQuestions[currentQuestionIndex] = shuffledQuestion;
 }
 
 // Select answer
@@ -115,14 +148,6 @@ function selectAnswer(index) {
     // Mark selected option
     options[index].classList.add('selected');
     
-    // Enable next button
-    nextBtn.disabled = false;
-}
-
-// Next question
-function nextQuestion() {
-    if (selectedAnswer === null) return;
-    
     // Check if answer is correct
     const question = currentQuestions[currentQuestionIndex];
     const isCorrect = selectedAnswer === question.correct;
@@ -131,15 +156,21 @@ function nextQuestion() {
         correctAnswers++;
     }
     
-    // Show correct/incorrect feedback
+    // Immediately show correct/incorrect feedback
     showAnswerFeedback(isCorrect);
     
-    // Wait 1.5 seconds then move to next question
-    setTimeout(() => {
-        currentQuestionIndex++;
-        displayQuestion();
-        resetTimer();
-    }, 1500);
+    // Enable next button immediately
+    nextBtn.disabled = false;
+}
+
+// Next question
+function nextQuestion() {
+    if (selectedAnswer === null) return;
+    
+    // Move to next question immediately
+    currentQuestionIndex++;
+    displayQuestion();
+    resetTimer();
 }
 
 // Show answer feedback
