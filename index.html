@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matematika Test</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Main Menu -->
+        <div id="mainMenu" class="menu-container">
+            <div class="header">
+                <h1>Matematika Test</h1>
+                <p>Boshlang'ich ta'lim yo'nalishi uchun matematika o'qitish metodikasi</p>
+            </div>
+            
+            <div class="groups-grid">
+                <div class="group-card" data-group="1">
+                    <h3>Guruh 1</h3>
+                    <p>Savollar 1-30</p>
+                    <span class="question-count">30 ta savol</span>
+                </div>
+                <div class="group-card" data-group="2">
+                    <h3>Guruh 2</h3>
+                    <p>Savollar 31-60</p>
+                    <span class="question-count">30 ta savol</span>
+                </div>
+                <div class="group-card" data-group="3">
+                    <h3>Guruh 3</h3>
+                    <p>Savollar 61-90</p>
+                    <span class="question-count">30 ta savol</span>
+                </div>
+                <div class="group-card" data-group="4">
+                    <h3>Guruh 4</h3>
+                    <p>Savollar 91-120</p>
+                    <span class="question-count">30 ta savol</span>
+                </div>
+                <div class="group-card" data-group="5">
+                    <h3>Guruh 5</h3>
+                    <p>Savollar 121-150</p>
+                    <span class="question-count">30 ta savol</span>
+                </div>
+                <div class="group-card" data-group="6">
+                    <h3>Guruh 6</h3>
+                    <p>Savollar 151-180</p>
+                    <span class="question-count">30 ta savol</span>
+                </div>
+                <div class="group-card" data-group="7">
+                    <h3>Guruh 7</h3>
+                    <p>Savollar 181-210</p>
+                    <span class="question-count">30 ta savol</span>
+                </div>
+                <div class="group-card" data-group="8">
+                    <h3>Guruh 8</h3>
+                    <p>Savollar 211-240</p>
+                    <span class="question-count">30 ta savol</span>
+                </div>
+                <div class="group-card" data-group="9">
+                    <h3>Guruh 9</h3>
+                    <p>Savollar 241-270</p>
+                    <span class="question-count">30 ta savol</span>
+                </div>
+                <div class="group-card" data-group="10">
+                    <h3>Guruh 10</h3>
+                    <p>Savollar 271-281</p>
+                    <span class="question-count">11 ta savol</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quizContainer" class="quiz-container hidden">
+            <div class="quiz-header">
+                <div class="progress-info">
+                    <span id="currentQuestion">1</span> / <span id="totalQuestions">30</span>
+                </div>
+                <div class="timer-container">
+                    <div class="timer">
+                        <span id="timer">45</span>
+                    </div>
+                </div>
+                <button id="backToMenu" class="back-btn">← Bosh menyu</button>
+            </div>
+
+            <div class="question-container">
+                <h2 id="questionText"></h2>
+                
+                <div class="options-container">
+                    <div class="option" data-index="0">
+                        <span class="option-letter">A</span>
+                        <span class="option-text"></span>
+                    </div>
+                    <div class="option" data-index="1">
+                        <span class="option-letter">B</span>
+                        <span class="option-text"></span>
+                    </div>
+                    <div class="option" data-index="2">
+                        <span class="option-letter">C</span>
+                        <span class="option-text"></span>
+                    </div>
+                    <div class="option" data-index="3">
+                        <span class="option-letter">D</span>
+                        <span class="option-text"></span>
+                    </div>
+                </div>
+
+                <div class="quiz-controls">
+                    <button id="nextBtn" class="next-btn" disabled>Keyingi savol</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Container -->
+        <div id="resultsContainer" class="results-container hidden">
+            <div class="results-header">
+                <h2>Test natijalari</h2>
+                <div class="score-display">
+                    <div class="score-circle">
+                        <span id="scorePercentage">0%</span>
+                    </div>
+                    <div class="score-details">
+                        <p>To'g'ri javoblar: <span id="correctAnswers">0</span></p>
+                        <p>Noto'g'ri javoblar: <span id="wrongAnswers">0</span></p>
+                        <p>Jami savollar: <span id="totalAnswered">0</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-actions">
+                <button id="restartBtn" class="restart-btn">Qaytadan boshlash</button>
+                <button id="backToMainMenu" class="back-btn">Bosh menyu</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
