@@ -135,6 +135,31 @@ function displayQuestion() {
     currentQuestions[currentQuestionIndex] = shuffledQuestion;
 }
 
+// Create confetti animation
+function createConfetti() {
+    const confettiContainer = document.getElementById('confettiContainer');
+    const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3', '#54a0ff', '#5f27cd'];
+    
+    // Create 150 confetti pieces
+    for (let i = 0; i < 150; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDelay = Math.random() * 0.5 + 's';
+        confetti.style.animationDuration = (Math.random() * 1 + 2) + 's';
+        
+        confettiContainer.appendChild(confetti);
+        
+        // Remove confetti after animation
+        setTimeout(() => {
+            if (confetti.parentNode) {
+                confetti.parentNode.removeChild(confetti);
+            }
+        }, 4000);
+    }
+}
+
 // Select answer
 function selectAnswer(index) {
     if (selectedAnswer !== null) return; // Prevent multiple selections
@@ -154,6 +179,8 @@ function selectAnswer(index) {
     
     if (isCorrect) {
         correctAnswers++;
+        // Trigger confetti animation for correct answer
+        createConfetti();
     }
     
     // Immediately show correct/incorrect feedback
